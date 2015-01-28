@@ -38,7 +38,8 @@ Meteor.subscribe 'allUserData'
 
 # staff
 logined = ->
-  Meteor.user()
+  #Meteor.user()
+  true
 
 
 showerror = (message) ->
@@ -247,7 +248,8 @@ Template.topic.helpers
   topic: ->
     topic_id = Session.get 'topic_id'
     Topics.update {_id: topic_id}, {$inc: {views: 1}}
-    Topics.find().fetch()
+    #Topics.find().fetch()
+    Topics.find _id: topic_id
 
   replys: ->
     r = Replys.find(topic_id: this._id).fetch()
@@ -337,26 +339,17 @@ Router.route  "/", ->
 
 Router.route  "/new", ->
   console.log "new called"
-  if not 1 #logined()
+  if not logined()
     return
   else
     @render "new"      
-
 
 Router.route "/t/:topic_id", ->
   topic_id = @params.topic_id.split('#', 2)[0]
   Session.set 'topic_id', topic_id
   #@render "index"
   @render "topic"
-  #@render "new"   
-  #Router.go "topic"
-
-Meteor.startup ->
-  tab = Cookie.get 'tab'
-
-  if location.pathname == '/' and tab? and tab != '/'
-    Meteor.Router.to "/go/#{tab}"
-
+  
 
 
 
