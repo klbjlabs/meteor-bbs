@@ -1,10 +1,11 @@
-Topics = new Meteor.Collection 'topics'
-Replys = new Meteor.Collection 'replys'
-Nodes = new Meteor.Collection 'nodes'
+@Topics = new Meteor.Collection 'topics'
+@Replys = new Meteor.Collection 'replys'
+@Nodes = new Meteor.Collection 'nodes'
 
 simpleAcl = 
   insert: (userId, doc) ->
-    userId and doc.userId is userId
+  #  userId and doc.userId is userId
+    true
   update: (userId, docs, fields, modifier) ->
     for field in ['_id', 'userId', 'content', 'created', 'nodes', 'title']
       return false if field in fields
@@ -24,7 +25,7 @@ Nodes.allow
     false
 
 
-Pages = new Meteor.Collection 'pages'
+@Pages = new Meteor.Collection 'pages'
 Pages.allow
   insert: -> false
   update: -> false

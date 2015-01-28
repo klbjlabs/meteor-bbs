@@ -2,7 +2,7 @@
   <meta charset="utf-8">
   <title>Meteor V2EX</title>
   <meta content="True" name="HandheldFriendly" />
-  <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0" name="viewport" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
   <meta property="qc:admins" content="**FROM connect.qq.com**" />
 
   <link rel="stylesheet" media="screen and (min-width: 768px)" href="/desktop.css">
@@ -33,7 +33,7 @@
   {{#with member}}
               <div id="Rightbar">
                 <div class="sep20"></div>
-                {{#if logined}}
+    {{#if logined}}
                 <div class="box">
                     <div class="cell">
                         <table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -46,9 +46,9 @@
                                 </td>
                             </tr>
                         </table>
-                    
+                    </div>
                 </div>
-                {{else}}
+    {{else}}
                 <div class="box">
                     <div class="cell">
                         <strong>by @chuangbo,  qq login by @yonggao</strong>
@@ -57,19 +57,15 @@
                     </div>
                     <div class="inner">
                         <div class="sep5"></div>
-                        <div align="center"><a href="#" id="loginBtn"><img src="/img/qq.png" /></a>
+                        <div align="center"><a href="#" id="loginBtn"><img src="/img/qq.png" /></a></div>
                         <div class="sep10"></div>
                         <span class="fade"> many thanks to @livid's <a href="http://www.v2ex.com">V2EX</a></span>
-
                     </div>
                 </div>
-                {{/if}}
-                
-            </div>
+    {{/if}}
+              </div>
   {{/with}}
 </template>
-
-
 
 <template name="index">
   <div class="sep20"></div>

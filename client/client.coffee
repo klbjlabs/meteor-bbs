@@ -130,7 +130,7 @@ Template.rightbar.helpers
   member: ->
     Meteor.user()
 
-Template.rightbar.preserve ['img']
+#Template.rightbar.preserve ['img']
 
 Template.rightbar.events
   'click #loginBtn': =>
@@ -194,7 +194,7 @@ Template.index.rendered = ->
 
 # topic item line
 Template.topic_item.helpers view_helpers
-Template.topic_item.preserve ['img']
+#Template.topic_item.preserve ['img']
 
 
 
@@ -236,12 +236,10 @@ Template.new.events
 
     topic_id = Topics.insert data
 
-    Meteor.Router.to "/t/#{topic_id}#reply0"
+    #Meteor.Router.to "/t/#{topic_id}#reply0"
 
-
-
-
-
+    Router.go  "/t/#{topic_id}#reply0"
+    #Router.go('/');
 
 # one topic
 Template.topic.helpers view_helpers
@@ -249,7 +247,7 @@ Template.topic.helpers
   topic: ->
     topic_id = Session.get 'topic_id'
     Topics.update {_id: topic_id}, {$inc: {views: 1}}
-    Topics.find _id: topic_id
+    Topics.find().fetch()
 
   replys: ->
     r = Replys.find(topic_id: this._id).fetch()
@@ -304,7 +302,7 @@ Template.topic.events
 
 # reply
 Template.reply.helpers view_helpers
-Template.reply.preserve ['img']
+#Template.reply.preserve ['img']
 
 
 
@@ -330,55 +328,28 @@ Template.member.helpers
 
 # APP
 
+Router.route  "/", ->
+  @render "index"
+  Session.set 'tab', '/'
+  Cookie.set 'tab', '/'
+  Session.set 'page', 1  
+  return
 
-Meteor.Router.add
-  '/': ->
-    Session.set 'tab', '/'
-    Cookie.set 'tab', '/'
-    Session.set 'page', 1
-    'index'
-  '/p:page': (page) ->
-    Session.set 'tab', '/'
-    Cookie.set 'tab', '/'
-    Session.set 'page', page
-    'index'
-  '/new': ->
-    if not logined()
-      return
-    else
-      'new'
-  '/login': ->
-    if logined()
-      this.navigate '/', {trigger: true}
-    else
-      'login'
-  '/t/:topic_id': (topic_id) ->
-    topic_id = topic_id.split('#', 2)[0]
-    Session.set 'topic_id', topic_id
-    'topic'
-  '/go/:node': (node) ->
-    Session.set 'tab', node
-    Cookie.set 'tab', node
-    Session.set 'page', 1
-    'index'
-  "/go/:node/p:page": (node, page) ->
-    Session.set 'tab', node
-    Cookie.set 'tab', node
-    Session.set 'page', page
-    'index'
-  "/member/:id": (id) ->
-    Session.set 'memberId', id
-    'member'
+Router.route  "/new", ->
+  console.log "new called"
+  if not 1 #logined()
+    return
+  else
+    @render "new"      
 
-Meteor.Router.filters
-  'checkLoggedIn': (page) ->
-    if Meteor.user()
-      if Meteor.user()
-        'loading'
-      else
-        page
-    else
-      'signin'
+
+Router.route "/t/:topic_id", ->
+  topic_id = @params.topic_id.split('#', 2)[0]
+  Session.set 'topic_id', topic_id
+  #@render "index"
+  @render "topic"
+  #@render "new"   
+  #Router.go "topic"
 
 Meteor.startup ->
   tab = Cookie.get 'tab'

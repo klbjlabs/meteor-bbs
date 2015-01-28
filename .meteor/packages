@@ -6,7 +6,10 @@
 coffeescript
 backbone
 http
-router
+#router
 cookie
 moment
-accounts-qq
+#accounts-qq
+leonzhang1109:accounts-qq
+meteor-platform
+iron:router
