@@ -347,9 +347,13 @@ Router.route  "/new", ->
 Router.route "/t/:topic_id", ->
   topic_id = @params.topic_id.split('#', 2)[0]
   Session.set 'topic_id', topic_id
-  #@render "index"
   @render "topic"
   
-
+Router.route "/go/:node", ->
+  node = @params.node
+  Session.set 'tab', node
+  Cookie.set 'tab', node
+  Session.set 'page', 1
+  @render 'index'
 
 
