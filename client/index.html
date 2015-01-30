@@ -3,7 +3,7 @@
   <title>Maodou BBS</title>
   <meta content="True" name="HandheldFriendly" />
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-  <meta property="qc:admins" content="**FROM connect.qq.com**" />
+  <meta property="qc:admins" content="2732463247475522365545726375" />
 
   <link rel="stylesheet" media="screen and (min-width: 768px)" href="/desktop.css">
   <link rel="stylesheet" media="screen and (max-width: 767px)" href="/mobile.css">
@@ -14,62 +14,83 @@
 </body>
 
 <template name="main">
-    <div id="Wrapper">
-        <div class="content">
-            
-            <div id="Leftbar"></div>
-            {{> rightbar}}
-            <div id="Main">
-              {{renderPage}}
-            </div>
-            
-        </div>
-        <div class="c"></div>
-        <div class="sep20"></div>
+ <div class="box">
+    <div class="cell" id="Tabs" >
+      <div align="left" height=50px>
+        <a href="/" class="fl" target=_blank> <img src="img/maodou.png" height=40px > </a>
+      </div>
+
+      <div align="right" height=40px>
+       {{> rightbar}}
+      </div>
     </div>
+  </div>  
+        {{renderPage}}
+
 </template>
 
 <template name="rightbar">
-  {{#with member}}
-              <div id="Rightbar">
-                <div class="sep20"></div>
-    {{#if logined}}
-                <div class="box">
-                    <div class="cell">
-                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                            <tr>
-                                <td width="48" valign="top"><a href="/member/{{_id}}"><img src="{{profile.figureUrlAt50}}" class="avatar" border="0" align="default" width="48" height="48"/></a></td>
-                                <td width="10" valign="top"></td>
-                                <td width="auto" align="left"><span class="bigger"><a href="/member/{{_id}}">{{profile.name}}</a></span>
-                                    <div class="sep5"></div>
-                                    <span class="fade">&#9733; &#9733; &#9733; &#9734; &#9734;</span>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-    {{else}}
-                <div class="box">
-                    <div class="cell">
-                        <strong>by @chuangbo,  qq login by @yonggao</strong>
-                        <div class="sep5"></div>
-                        <span class="fade">Live long and prosper</span>
-                    </div>
-                    <div class="inner">
-                        <div class="sep5"></div>
-                        <div align="center"><a href="#" id="loginBtn"><img src="/img/qq.png" /></a></div>
-                        <div class="sep10"></div>
-                        <span class="fade"> many thanks to @livid's <a href="http://www.v2ex.com">V2EX</a></span>
-                    </div>
-                </div>
-    {{/if}}
-              </div>
-  {{/with}}
+  {{#if currentUser}}
+    {{#with member}}
+         <div align="right">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td width="48" valign="top"><a href="/member/{{_id}}"><img src="{{profile.figureUrlAt50}}" class="avatar" border="0" align="default" width="48" height="48"/></a></td>
+                        <td width="10" valign="top"></td>
+                        <td width="auto" align="left"><span class="bigger"><a href="/member/{{_id}}">{{currentUser.profile.name}}</a></span>
+                            <div class="sep5"></div>
+                            <span class="fade">&#9733; &#9733; &#9733; &#9734; &#9734;</span>
+                        </td>
+                    </tr>
+                </table>
+         </div>
+    {{/with}}
+  {{else}}
+        <div class="sep5"></div>
+        <div align="right">
+          <a href="#" id="loginBtn"><img src="/img/weibo.png" /></a>
+        </div>
+  {{/if}}
+</template>
+
+<template name="rightbar2">
+  <div id="Rightbar">
+    <div class="sep20"></div>
+  {{#if currentUser}}
+    {{#with member}}
+				<div class="box">
+						<div class="cell">
+								<table cellpadding="0" cellspacing="0" border="0" width="100%">
+										<tr>
+												<td width="48" valign="top"><a href="/member/{{_id}}"><img src="{{profile.figureUrlAt50}}" class="avatar" border="0" align="default" width="48" height="48"/></a></td>
+												<td width="10" valign="top"></td>
+												<td width="auto" align="left"><span class="bigger"><a href="/member/{{_id}}">{{currentUser.profile.name}}</a></span>
+														<div class="sep5"></div>
+														<span class="fade">&#9733; &#9733; &#9733; &#9734; &#9734;</span>
+												</td>
+										</tr>
+								</table>
+						</div>
+				</div>
+    {{/with}}
+  {{else}}
+		<div class="inner">
+				<div class="sep5"></div>
+				<div align="center">
+					<a href="#" id="loginBtn"><img src="/img/weibo.png" /></a>
+				</div>
+				<div class="sep10"></div>
+		</div>
+  {{/if}}
+  </div>
 </template>
 
 <template name="index">
-  <div class="sep20"></div>
   <div class="box">
+
+
+
+
     <div class="cell" id="Tabs">
       <a href="/" class="{{#if current_tab "/"}}tab_current{{else}}tab{{/if}}">全部</a>
       {{#each all_nodes}}
@@ -85,17 +106,22 @@
     <div class="inner">
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
             <tbody><tr>
+                <!--
                 <td width="120" align="left">
                   {{#if has_prev_page}}
                   <a href="{{prev_page}}" class="super normal button">‹ 上一页</a>
                   {{/if}}
                 </td>
+                
                 <td width="auto" align="center"><strong class="fade">{{current_page}}/{{page_count}}</strong></td>
+               
                 <td width="120" align="right">
                   {{#if has_next_page}}
                   <a href="{{next_page}}" class="super normal button">下一页 ›</a>
                   {{/if}}
                 </td>
+                 -->
+                <td width="auto" align="center"><strong class="fade">maodou bbs @copyright</strong></td>
             </tr>
         </tbody></table>
     </div>
@@ -107,9 +133,10 @@
 
 
 <template name="new">
-  <div class="sep20"></div>
+  <div class="sep5"></div>
   <div class="box">
     <div class="header"><a href="/">Home</a> <span class="chevron">&nbsp;›&nbsp;</span> 创建新主题</div>
+
     <div class="problem">创建新主题过程中遇到一些问题：<ul><li></li></ul></div>
     <div class="cell">
         <form>
@@ -140,7 +167,7 @@
 
 <template name="topic">
   {{#each topic}}
-    <div class="sep20"></div>
+    <div class="sep5"></div>
     <div class="box" style="border-bottom: 0px;">
       <div class="header">
         <div class="fr">
@@ -166,7 +193,7 @@
       </div>
     </div>
 
-    <div class="sep20"></div>
+    <div class="sep5"></div>
 
     {{#if no_reply}}
     <div class="box transparent">
@@ -187,7 +214,7 @@
     {{/if}}
 
     {{#if logined}}
-    <div class="sep20"></div>
+    <div class="sep5"></div>
 
     <div class="box">
       <div class="cell">
@@ -237,10 +264,67 @@
 
 
 
-
-
-
 <template name="member">
+  <div class="sep5"></div>
+
+  <div class="box">
+    <div class="cell">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tbody>
+          <tr>
+            <td width="73" valign="top" align="center"><img src="{{profile.figureUrlAt100}}" class="avatar" border="0" align="default" auto="" width="73" height="73"></td>
+            <td width="10"></td>
+            <td width="auto" valign="top" align="left">
+               <div class="fr">
+               </div>
+               <h1 style="margin-bottom: 5px;">{{profile.name}}</h1>
+							 <span class="bigger gray">Stay hungry, Stay foolish</span>
+               <div class="sep5"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sep5"></div>
+    </div>
+  </div>
+
+  <div class="sep5"></div>
+  <div class="box">
+    <div class="cell"><span class="gray">{{user}} 最近创建的主题</span></div>
+    {{#each topics}}
+      {{> topic_item}}
+    {{/each}}
+  </div>
+
+  <div class="sep5"></div>
+
+  <div class="box">
+    <div class="cell"><span class="gray">{{user}} 最近回复了</span></div>
+    
+    {{#each replys}}
+
+      {{#each reply_to topic_id}}
+      <div class="dock_area">
+        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tbody><tr>
+                <td style="padding: 10px 15px 8px 15px; font-size: 12px; text-align: left;"><div class="fr"><span class="fade">{{fromnow ../created}}</span></div><span class="gray">回复了 {{user}} 创建的主题 <span class="chevron">›</span> <a href="/t/{{_id}}#reply{{reply_count}}">{{title}}</a></span></td> 
+            </tr>
+            <tr>
+                <td align="left"><img src="/img/arrow.png" style="margin-left: 20px;"></td>
+            </tr>
+        </tbody></table>
+      </div>
+      {{/each}}
+      <div class="inner">
+        <div class="reply_content">{{{content}}}</div>
+      </div>
+
+    {{/each}}
+ </div>   
+</template>
+
+
+<template name="member2">
   {{#each member}}
   <div class="sep20"></div>
 

@@ -3,13 +3,22 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
+meteor-platform
 coffeescript
 backbone
 http
 #router
 cookie
-moment
+#moment
 #accounts-qq
-leonzhang1109:accounts-qq
-meteor-platform
+limingth:accounts-weibo
+
+insecure
+#autopublish
+#accounts-base
+#leonzhang1109:accounts-qq
 iron:router
+service-configuration
+
+# Packages from the release:
+

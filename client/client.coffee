@@ -38,10 +38,11 @@ Meteor.subscribe 'allUserData'
 
 # staff
 logined = ->
-  #Meteor.user()
-  true
-
-
+  #true
+  console.log "logined value = ", Session.get("islogined")
+  Session.get "islogined"
+  Meteor.user()
+  
 showerror = (message) ->
   $('.problem li').html message
   $('.problem').show()
@@ -135,8 +136,15 @@ Template.rightbar.helpers
 
 Template.rightbar.events
   'click #loginBtn': =>
-    Meteor.loginWithQq()
-
+    Session.set "islogined", true
+    console.log "isLogined value = true"
+    Meteor.loginWithWeibo
+      loginStyle: "popup"
+    #loginStyle: 'redirect'  you can use redirect for mobile web app
+    , ->
+      console.log "weibo login succ"
+      #console.log currentUser.profile.name
+      return
 
 
 # index
@@ -182,9 +190,11 @@ Template.index.helpers
     Pages.findOne(tab: tab)?.count
 
   has_prev_page: ->
+    return false
     Session.get('page')-0 != 1
 
   has_next_page: ->
+    return false
     tab = Session.get 'tab'
     max_page = Pages.findOne(tab: tab)?.count
 
@@ -340,6 +350,7 @@ Router.route  "/", ->
 Router.route  "/new", ->
   console.log "new called"
   if not logined()
+    console.log "not logined, please sign in first"
     return
   else
     @render "new"      
@@ -356,4 +367,7 @@ Router.route "/go/:node", ->
   Session.set 'page', 1
   @render 'index'
 
-
+Router.route "/member/:id", ->
+  console.log "member route", @params.id
+  Session.set 'memberId', @params.id
+  @render 'member'
