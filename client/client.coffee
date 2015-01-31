@@ -293,10 +293,10 @@ Template.topic.events
         $inc: {reply_count: 1}
       }
 
+    $('#content').val('')
     reply_count = Topics.findOne(_id: this._id).reply_count
     Meteor.Router.to "/t/#{this._id}#reply#{reply_count}"
 
-    $('#content').val('')
 
   "click .ReplyOne": (e) ->
     e.preventDefault()
@@ -349,11 +349,11 @@ Router.route  "/", ->
 
 Router.route  "/new", ->
   console.log "new called"
-  if not logined()
-    console.log "not logined, please sign in first"
-    return
-  else
-    @render "new"      
+  #if not logined()
+  #  console.log "not logined, please sign in first"
+  #  return
+  #else
+  @render "new"      
 
 Router.route "/t/:topic_id", ->
   topic_id = @params.topic_id.split('#', 2)[0]
