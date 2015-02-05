@@ -14,14 +14,14 @@ Meteor.startup ->
 
 #Meteor.startup ->
   # code to run on server at startup
-  console.log "service weibo login success"
-  Accounts.loginServiceConfiguration.remove service: "weibo"
-  Accounts.loginServiceConfiguration.insert
-    service: "weibo"
-    clientId: "876469458"
-    secret: "82a6839216adb346e366ca8e8bee6e67"
+#  console.log "service weibo login success"
+#  Accounts.loginServiceConfiguration.remove service: "weibo"
+#  Accounts.loginServiceConfiguration.insert
+#    service: "weibo"
+#    clientId: "876469458"
+#    secret: "82a6839216adb346e366ca8e8bee6e67"
 
-  return
+#  return
 
 
 # server: publish all nodes

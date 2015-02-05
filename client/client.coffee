@@ -85,7 +85,7 @@ view_helpers =
       profile?.figureUrlAt100
 
   fromnow: (t) ->
-    moment.utc(t).fromNow()
+    #moment.utc(t).fromNow()
 
   content: ->
     ct = this.content
@@ -134,10 +134,20 @@ Template.rightbar.helpers
 
 #Template.rightbar.preserve ['img']
 
+Session.set "nameid", 1
+
 Template.rightbar.events
   'click #loginBtn': =>
     Session.set "islogined", true
     console.log "isLogined value = true"
+		#Meteor.users.insert username: 'liming' 
+    Session.set "nameid", Session.get "nameid" + 1
+
+    Meteor.users.insert({username: Session.get('nameid'), emails: ['bar@example.com'], name: 'baz', services:''});
+# -
+#    Meteor.users.insert({username: Session.get 'nameid',  emails: ['bar@example.com'], name: 'baz', services:     {password:''}});
+    return
+
     Meteor.loginWithWeibo
       loginStyle: "popup"
     #loginStyle: 'redirect'  you can use redirect for mobile web app
@@ -343,7 +353,7 @@ Template.member.helpers
 Router.route  "/", ->
   @render "index"
   Session.set 'tab', '/'
-  Cookie.set 'tab', '/'
+  #Cookie.set 'tab', '/'
   Session.set 'page', 1  
   return
 
@@ -363,7 +373,7 @@ Router.route "/t/:topic_id", ->
 Router.route "/go/:node", ->
   node = @params.node
   Session.set 'tab', node
-  Cookie.set 'tab', node
+  #Cookie.set 'tab', node
   Session.set 'page', 1
   @render 'index'
 
