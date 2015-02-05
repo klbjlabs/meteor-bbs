@@ -35,7 +35,7 @@
          <div align="right">
                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                     <tr>
-                        <td width="48" valign="top"><a href="/member/{{_id}}"><img src="{{profile.figureUrlAt50}}" class="avatar" border="0" align="default" width="48" height="48"/></a></td>
+                        <td width="48" valign="top"><a href="http://github.com/{{currentUser.profile.github.username}}" target=_blank><img src="{{currentUser.profile.github.avatar_url}}" class="avatar" border="0" align="default" width="48" height="48"/></a></td>
                         <td width="10" valign="top"></td>
                         <td width="auto" align="left"><span class="bigger"><a href="/member/{{_id}}">{{currentUser.profile.name}}</a></span>
                             <div class="sep5"></div>
@@ -179,7 +179,7 @@
       <div class="header">
         <div class="fr">
           <a href="/member/{{userId}}">
-          <img src="{{gravatar userId 73}}" class="avatar" border="0" align="default" auto="" width="73" height="73">
+          <img src="{{profile.figureUrlAt50}}" class="avatar" border="0" align="default" auto="" width="73" height="73">
           </a>
         </div>
 
